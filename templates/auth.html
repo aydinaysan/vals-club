@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% block title %}VALS CLUB — {{'Kayıt' if mode=='register' else 'Giriş'}}{% endblock %}
+{% block content %}<div class="auth card"><div class="eyebrow">ULTIMATE HOME TEAM</div><h1>VALS<span>CLUB</span></h1>
+<p>Oyna. Topla. Seviye Atla. Kazan.</p>
+<form method="post">
+{% if mode=='register' %}<label>Ad Soyad<input name="name" required></label>{% endif %}
+<label>E-posta<input type="email" name="email" required></label>
+<label>Şifre<input type="password" name="password" required minlength="8"></label>
+<button class="btn">{{'KAYIT OL' if mode=='register' else 'GİRİŞ YAP'}}</button>
+</form>
+{% if mode=='register' %}<a href="{{url_for('login')}}">Zaten hesabım var</a>{% else %}<a href="{{url_for('register')}}">Yeni hesap oluştur</a>{% endif %}
+</div>{% endblock %}

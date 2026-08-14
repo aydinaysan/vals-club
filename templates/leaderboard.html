@@ -1,0 +1,3 @@
+{% extends "base.html" %}{% block title %}Liderlik{% endblock %}
+{% block content %}<section class="card section"><div class="eyebrow">VALS CLUB</div><h1>Liderlik Tablosu</h1><p class="muted">Pilot ekipte kim önde?</p>
+<table><tr><th>#</th><th>Oyuncu</th><th>XP</th><th>Seri</th></tr>{% for r in rows %}<tr><td>{{loop.index}}</td><td>{{r['name']}}</td><td>{{r['xp']}}</td><td>{{r['streak']}} 🔥</td></tr>{% endfor %}</table></section>{% endblock %}

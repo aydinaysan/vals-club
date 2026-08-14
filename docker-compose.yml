@@ -1,0 +1,12 @@
+services:
+  vals-club:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - SECRET_KEY=change-this-to-a-long-random-value
+    volumes:
+      - vals_data:/app
+    restart: unless-stopped
+volumes:
+  vals_data:

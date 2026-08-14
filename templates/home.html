@@ -1,0 +1,18 @@
+{% extends "base.html" %}{% block title %}VALS CLUB{% endblock %}
+{% block content %}
+<section class="hero"><div class="card hero-main"><div class="eyebrow">ULTIMATE HOME TEAM</div><h1>Evinin takımını kur.<br>Seviyeni yükselt.</h1><p>Her gün küçük bir görev yap, XP kazan, koleksiyonunu büyüt ve Vals Club avantajlarının kilidini aç.</p>
+<div class="stats"><div><b>{{u['xp']}}</b><small>XP</small></div><div><b>{{level}}</b><small>Seviye</small></div><div><b>{{u['streak']}} 🔥</b><small>Günlük seri</small></div></div></div>
+<div class="card rating"><div><div class="eyebrow">HOME RATING</div><strong>{{rating}}</strong><div class="stars">★★★★★</div></div><div class="progress"><i style="width:{{ ((u['xp'] % XP_LEVEL) / XP_LEVEL * 100)|int if XP_LEVEL else 0 }}%"></i></div><small>Bir sonraki seviye: {{next_xp}} XP</small></div></section>
+
+<div class="grid">
+<section class="card section"><h2>🎯 Bugünün Görevleri</h2><p class="muted">Tamamladıkça XP hesabına işlenir.</p>
+{% for t in tasks %}<div class="task {% if t['id'] in done %}done{% endif %}"><div><b>{{t['title']}}</b><small>{{t['description']}}</small></div><span>+{{t['xp']}} XP</span>{% if t['id'] in done %}<em>✓</em>{% else %}<form method="post" action="{{url_for('complete_task',task_id=t['id'])}}"><button class="btn small">YAP</button></form>{% endif %}</div>{% endfor %}</section>
+
+<section class="card section chest"><div><div class="eyebrow">DAILY REWARD</div><div class="chesticon">🎁</div><h2>Bugünün Sandığı</h2><p class="muted">Her gün bir kez aç. İçinden sürpriz XP çıkar.</p><form method="post" action="{{url_for('chest')}}"><button class="btn">SANDIĞI AÇ</button></form></div></section>
+</div>
+
+<section class="card section"><div class="section-head"><div><h2>🏠 Koleksiyonum</h2><p class="muted">Ürünlerini kaydet, Home Rating'ini artır.</p></div></div>
+<div class="collection">{% for p in products %}<div class="product {% if not p['added_at'] %}locked{% endif %}"><span class="rarity">{{p['rarity']}}</span><div class="picon">{{p['icon']}}</div><b>{{p['name']}}</b><small>+{{p['rating']}} Home Rating</small>{% if not p['added_at'] %}<form method="post" action="{{url_for('add_product',code=p['code'])}}"><button class="btn small">EKLE +500 XP</button></form>{% else %}<em>✓ Koleksiyonda</em>{% endif %}</div>{% endfor %}</div></section>
+
+<section class="card section"><h2>🎁 Ödüller</h2><p class="muted">XP'ni avantajlara dönüştür.</p>{% for r in rewards %}<div class="reward"><span>{{r['icon']}}</span><div><b>{{r['title']}}</b><small>{{r['description']}}</small></div><strong>{{r['cost']}} XP</strong><form method="post" action="{{url_for('redeem',rid=r['id'])}}"><button class="btn small">KULLAN</button></form></div>{% endfor %}</section>
+{% endblock %}

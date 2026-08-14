@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block title %}Admin{% endblock %}
+{% block content %}<div class="eyebrow">PILOT ANALYTICS</div><h1>VALS CLUB Admin</h1>
+<div class="adminstats"><div class="card"><b>{{stats.users}}</b><small>Toplam kullanıcı</small></div><div class="card"><b>{{stats.active_today}}</b><small>Bugün giriş yapan</small></div><div class="card"><b>{{stats.products}}</b><small>Ürün kaydı</small></div><div class="card"><b>{{stats.xp}}</b><small>Toplam XP</small></div></div>
+<section class="card section"><h2>Kullanıcılar</h2><table><tr><th>Ad</th><th>E-posta</th><th>XP</th><th>Seri</th><th>Son giriş</th></tr>{% for u in users %}<tr><td>{{u['name']}}</td><td>{{u['email']}}</td><td>{{u['xp']}}</td><td>{{u['streak']}}</td><td>{{u['last_login'] or '-'}}</td></tr>{% endfor %}</table></section>{% endblock %}
