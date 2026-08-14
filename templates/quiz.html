@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block title %}Günün Sorusu · VALS CLUB{% endblock %}
+{% block content %}
+<section class="card section activity-page"><div class="eyebrow">DAILY QUIZ</div><h1>🧠 Günün Sorusu</h1><p class="muted">Bugün sadece bir kez cevaplayabilirsin. Doğru cevap +100 XP.</p>
+{% if done %}<div class="result {% if result==100 %}good{% else %}bad{% endif %}"><strong>{% if result==100 %}Doğru cevap!{% else %}Yanlış cevap.{% endif %}</strong><p>{{q['explanation']}}</p><a class="btn" href="{{url_for('home')}}">ANA SAYFAYA DÖN</a></div>{% else %}
+<div class="quiz-question"><h2>{{q['question']}}</h2><form method="post">{% for option in options %}<label class="option"><input type="radio" name="answer" value="{{loop.index0}}" required><span>{{option}}</span></label>{% endfor %}<button class="btn" type="submit">CEVABI GÖNDER</button></form></div>{% endif %}</section>
+{% endblock %}

@@ -6,7 +6,7 @@
 
 <div class="grid">
 <section class="card section"><h2>🎯 Bugünün Görevleri</h2><p class="muted">Tamamladıkça XP hesabına işlenir.</p>
-{% for t in tasks %}<div class="task {% if t['id'] in done %}done{% endif %}"><div><b>{{t['title']}}</b><small>{{t['description']}}</small></div><span>+{{t['xp']}} XP</span>{% if t['id'] in done %}<em>✓</em>{% else %}<form method="post" action="{{url_for('complete_task',task_id=t['id'])}}"><button class="btn small">YAP</button></form>{% endif %}</div>{% endfor %}</section>
+{% for t in tasks %}<div class="task {% if t['id'] in done %}done{% endif %}"><div><b>{{t['title']}}</b><small>{{t['description']}}</small></div><span>+{{t['xp']}} XP</span>{% if t['id'] in done %}<em>✓</em>{% else %}{% if t['code']=='daily_2' %}<a class="btn small" href="{{url_for('quiz')}}">YAP</a>{% elif t['code']=='daily_3' %}<a class="btn small" href="{{url_for('energy_test')}}">YAP</a>{% elif t['code']=='daily_4' %}<a class="btn small" href="{{url_for('mini_task')}}">YAP</a>{% else %}<form method="post" action="{{url_for('complete_task',task_id=t['id'])}}"><button class="btn small">YAP</button></form>{% endif %}{% endif %}</div>{% endfor %}</section>
 
 <section class="card section chest"><div><div class="eyebrow">DAILY REWARD</div><div class="chesticon">🎁</div><h2>Bugünün Sandığı</h2><p class="muted">Her gün bir kez aç. İçinden sürpriz XP çıkar.</p><form method="post" action="{{url_for('chest')}}"><button class="btn">SANDIĞI AÇ</button></form></div></section>
 </div>

@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block title %}Mini Görev · VALS CLUB{% endblock %}
+{% block content %}
+<section class="card section activity-page"><div class="eyebrow">DAILY MISSION</div><h1>🎯 Mini Görev</h1><p class="muted">Küçük bir gerçek hayat görevi. Tamamlayınca +100 XP.</p><div class="mission"><h2>{{text}}</h2></div>{% if done %}<div class="result good"><strong>Görev tamamlandı.</strong><a class="btn" href="{{url_for('home')}}">ANA SAYFAYA DÖN</a></div>{% else %}<form method="post"><label class="field"><span>Ne yaptığını kısaca yaz</span><textarea name="note" rows="4" required placeholder="Örn. Salondaki vantilatörün enerji etiketini kontrol ettim."></textarea></label><button class="btn" type="submit">GÖREVİ TAMAMLA</button></form>{% endif %}</section>
+{% endblock %}

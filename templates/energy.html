@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block title %}Enerji Testi · VALS CLUB{% endblock %}
+{% block content %}
+<section class="card section activity-page"><div class="eyebrow">ENERGY TEST</div><h1>⚡ Enerji Testi</h1><p class="muted">3 kısa soru. Testi tamamla, +100 XP kazan.</p>
+{% if done %}<div class="result good"><strong>Test tamamlandı: {{score}} / 3</strong><p>Yarın yeni bir test seni bekliyor.</p><a class="btn" href="{{url_for('home')}}">ANA SAYFAYA DÖN</a></div>{% else %}<form method="post">{% for code,q,opts,correct in questions %}<div class="quiz-question"><h2>{{loop.index}}. {{q}}</h2>{% for option in opts %}<label class="option"><input type="radio" name="q{{loop.index0}}" value="{{loop.index0}}" required><span>{{option}}</span></label>{% endfor %}</div>{% endfor %}<button class="btn" type="submit">TESTİ BİTİR</button></form>{% endif %}</section>
+{% endblock %}
