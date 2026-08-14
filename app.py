@@ -100,7 +100,12 @@ def init_db():
         CREATE TABLE IF NOT EXISTS quiz_questions(id INTEGER PRIMARY KEY AUTOINCREMENT,code TEXT UNIQUE NOT NULL,question TEXT NOT NULL,options TEXT NOT NULL,correct_index INTEGER NOT NULL,explanation TEXT NOT NULL,active INTEGER DEFAULT 1);
         CREATE TABLE IF NOT EXISTS activity_attempts(id INTEGER PRIMARY KEY AUTOINCREMENT,user_id INTEGER NOT NULL,kind TEXT NOT NULL,activity_code TEXT NOT NULL,day TEXT NOT NULL,score INTEGER DEFAULT 0,completed INTEGER DEFAULT 0,UNIQUE(user_id,kind,day));
         """
-    c.execute(schema)
+    # PostgreSQL psycopg does not reliably execute a multi-statement schema
+    # through one execute() call. Execute each CREATE statement separately.
+    for statement in schema.split(";"):
+        statement = statement.strip()
+        if statement:
+            c.execute(statement)
     for i,(title,desc,xp) in enumerate(TASKS,1):
         if not one(c,"SELECT 1 FROM tasks WHERE code=?",(f"daily_{i}",)):
             execute(c,"INSERT INTO tasks(code,title,description,xp) VALUES(?,?,?,?)",(f"daily_{i}",title,desc,xp))
